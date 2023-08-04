@@ -1,0 +1,4 @@
+dist
+svelte.config.js
+vite.config.ts
+.eslintrc.cjs

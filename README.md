@@ -1,0 +1,5 @@
+- linting, auto format
+- styling clean up
+- readme anpassen
+- committen auf github
+- deploy auf netlify
