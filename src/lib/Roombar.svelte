@@ -1,17 +1,16 @@
 <script lang="ts">
-
   /*global setInterval, clearInterval */
 
   interface Area {
     visited?: boolean;
     occupied?: boolean;
     x: number;
-    
+
     y: number;
     element: HTMLElement | null;
   }
 
-    let interval: number
+  let interval: number;
   let blockSize: number = 40;
   let inlineSize: number = 40;
 
@@ -25,12 +24,12 @@
   let roombar: Area = {
     x: 0,
     y: 0,
-    element: null
-  }
+    element: null,
+  };
 
   $: areaBlockSize = blockSize / divider;
   $: areaInlineSize = inlineSize / divider;
-  $: if(divider !== prevDivider || !prevDivider) {
+  $: if (divider !== prevDivider || !prevDivider) {
     stopAnimation();
     initAreas();
     startAnimation();
@@ -40,15 +39,15 @@
   const initAreas = (): void => {
     areas = [];
 
-    for(let i: number = 0; i < divider; i++) {
-      for(let j: number = 0; j < divider; j++) {
+    for (let i: number = 0; i < divider; i++) {
+      for (let j: number = 0; j < divider; j++) {
         areas.push({
           visited: false,
           occupied: false,
           x: j,
           y: i,
-          element: null
-        })
+          element: null,
+        });
       }
     }
   };
@@ -57,15 +56,23 @@
     roombar = {
       x: 0,
       y: 0,
-      element: null
-    }
+      element: null,
+    };
 
     interval = setInterval(() => {
-      const rightArea = areas.find(area => area.x === roombar.x + 1 && area.y === roombar.y);
-      const leftArea = areas.find(area => area.x === roombar.x - 1 && area.y === roombar.y);
-      const bottomArea = areas.find(area => area.x === roombar.x && area.y === roombar.y + 1);
+      const rightArea = areas.find(
+        (area) => area.x === roombar.x + 1 && area.y === roombar.y,
+      );
+      const leftArea = areas.find(
+        (area) => area.x === roombar.x - 1 && area.y === roombar.y,
+      );
+      const bottomArea = areas.find(
+        (area) => area.x === roombar.x && area.y === roombar.y + 1,
+      );
 
-      areas.find(area => area.x === roombar.x && area.y === roombar.y).visited = true;
+      areas.find(
+        (area) => area.x === roombar.x && area.y === roombar.y,
+      ).visited = true;
 
       if (rightArea && !rightArea.visited) {
         roombar.x = roombar.x + 1;
@@ -78,7 +85,7 @@
       }
 
       areas = areas;
-    }, 500)
+    }, 500);
   };
 
   const stopAnimation = (): void => {
@@ -90,23 +97,49 @@
 
 <div class="controls">
   <div class="control">
-    <div class="number"><label for="height">change room height</label>{blockSize}</div>
-    <input id="height" type="range" step="10" min="10" max="100" bind:value={blockSize}/>
+    <div class="number">
+      <label for="height">change room height</label>{blockSize}
+    </div>
+    <input
+      id="height"
+      type="range"
+      step="10"
+      min="10"
+      max="100"
+      bind:value={blockSize}
+    />
   </div>
-  
+
   <div class="control">
-    <div class="number"><label for="width">change room width</label>{inlineSize}</div>
-    <input id="width" type="range" step="10" min="10" max="100" bind:value={inlineSize}/>
+    <div class="number">
+      <label for="width">change room width</label>{inlineSize}
+    </div>
+    <input
+      id="width"
+      type="range"
+      step="10"
+      min="10"
+      max="100"
+      bind:value={inlineSize}
+    />
   </div>
   <div class="control">
     <div class="number"><label for="width">change divider</label>{divider}</div>
-    <input id="divider" type="range" step="5" min="5" max="20" bind:value={divider}/>
+    <input
+      id="divider"
+      type="range"
+      step="5"
+      min="5"
+      max="20"
+      bind:value={divider}
+    />
   </div>
 </div>
 
 <div
   class="grid"
   style="
+
     --inline-size: {inlineSize}rem;
     --block-size: {blockSize}rem;
     --area-block-size: {areaBlockSize}rem;
@@ -117,6 +150,7 @@
     bind:this={roombar.element}
     class="roombar"
     style="
+
       --left: {roombar.x * areaInlineSize}rem;
       --top: {roombar.y * areaBlockSize}rem
     "
@@ -126,7 +160,9 @@
   {#each areas as area}
     <div
       bind:this={area.element}
-      class="area {area.visited ? 'is-visited' : ''} {area.occupied ? 'is-occupied' : ''}"
+      class="area {area.visited ? 'is-visited' : ''} {area.occupied
+        ? 'is-occupied'
+        : ''}"
     >
       x:{area.x} y:{area.y}
     </div>
@@ -136,24 +172,24 @@
 <style>
   .headline {
     font-size: 5rem;
-    text-align: center;
     margin-block-start: 3rem;
+    text-align: center;
   }
 
   .grid {
     --text-light: #fff;
-    --decoration-light: #F8F6F4;
-    --decoration-dark: #E3F4F4;
-    --success: #6BCB77;
-    --error: #FF6B6B;
-    --highlight: #4D96FF;
+    --decoration-light: #f8f6f4;
+    --decoration-dark: #e3f4f4;
+    --success: #6bcb77;
+    --error: #ff6b6b;
+    --highlight: #4d96ff;
 
+    block-size: var(--block-size);
     display: flex;
     flex-wrap: wrap;
-    position: relative;
     inline-size: var(--inline-size);
-    block-size: var(--block-size);
     margin-block-start: 4rem;
+    position: relative;
   }
 
   .controls {
@@ -163,14 +199,14 @@
   }
 
   .control {
-    display: flex;
     align-items: center;
+    display: flex;
     flex-direction: column;
   }
 
   .number {
-    display: flex;
     align-items: center;
+    display: flex;
     flex-direction: column;
     font-size: 5rem;
   }
@@ -180,39 +216,39 @@
   }
 
   input[type="range"] {
-    -webkit-appearance: none;
+    appearance: none;
     background-color: #bdc3c7;
-    width: 15rem;
-    height: 5px;
     border-radius: 5px;
+    height: 5px;
     outline: 0;
+    width: 15rem;
   }
 
   input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     background-color: #e74c3c;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
     border: 2px solid white;
+    border-radius: 50%;
     cursor: pointer;
-    transition: .3s ease-in-out;
+    height: 30px;
+    transition: 0.3s ease-in-out;
+    width: 30px;
   }
 
   .roombar {
-    position: absolute;
-    left: var(--left, 0);
-    top: var(--top, 0);
     background-color: var(--highlight);
     color: var(--text-light);
+    left: var(--left, 0);
+    position: absolute;
+    top: var(--top, 0);
   }
 
-  .area, 
+  .area,
   .roombar {
-    inline-size: var(--area-inline-size);
+    align-items: center;
     block-size: var(--area-block-size);
     display: flex;
-    align-items: center;
+    inline-size: var(--area-inline-size);
     justify-content: center;
   }
 
@@ -225,8 +261,8 @@
   }
 
   .area.is-visited {
-    color: var(--text-light);
     background-color: var(--success);
+    color: var(--text-light);
   }
 
   .area.is-occupied {
