@@ -101,6 +101,7 @@
       <label for="height">change room height</label>{blockSize}
     </div>
     <input
+      class="range"
       id="height"
       type="range"
       step="10"
@@ -115,6 +116,7 @@
       <label for="width">change room width</label>{inlineSize}
     </div>
     <input
+      class="range"
       id="width"
       type="range"
       step="10"
@@ -126,6 +128,7 @@
   <div class="control">
     <div class="number"><label for="width">change divider</label>{divider}</div>
     <input
+      class="range"
       id="divider"
       type="range"
       step="5"
@@ -177,13 +180,6 @@
   }
 
   .grid {
-    --text-light: #fff;
-    --decoration-light: #f8f6f4;
-    --decoration-dark: #e3f4f4;
-    --success: #6bcb77;
-    --error: #ff6b6b;
-    --highlight: #4d96ff;
-
     block-size: var(--block-size);
     display: flex;
     flex-wrap: wrap;
@@ -215,29 +211,25 @@
     font-size: 1rem;
   }
 
-  input[type="range"] {
+  .range {
     appearance: none;
-    background-color: #bdc3c7;
-    border-radius: 5px;
-    height: 5px;
+    background-color: var(--color-text);
+    height: 0.25rem;
     outline: 0;
     width: 15rem;
   }
 
-  input[type="range"]::-webkit-slider-thumb {
+  .range::-webkit-slider-thumb {
     appearance: none;
-    background-color: #e74c3c;
-    border: 2px solid white;
+    background-color: var(--color-text);
     border-radius: 50%;
     cursor: pointer;
-    height: 30px;
-    transition: 0.3s ease-in-out;
-    width: 30px;
+    height: 1rem;
+    width: 1rem;
   }
 
   .roombar {
-    background-color: var(--highlight);
-    color: var(--text-light);
+    background-color: var(--color-highlight);
     left: var(--left, 0);
     position: absolute;
     top: var(--top, 0);
@@ -253,19 +245,21 @@
   }
 
   .area:nth-child(even) {
-    background-color: var(--decoration-dark);
+    background-color: var(--color-light-2);
+    color: var(--color-dark-0);
   }
 
   .area:nth-child(odd) {
-    background-color: var(--decoration-light);
+    background-color: var(--color-light-1);
+    color: var(--color-dark-0);
   }
 
   .area.is-visited {
-    background-color: var(--success);
-    color: var(--text-light);
+    background-color: var(--color-success);
+    color: var(--color-text);
   }
 
   .area.is-occupied {
-    background-color: var(--error);
+    background-color: var(--color-error);
   }
 </style>

@@ -1,6 +1,16 @@
 :root {
-  background-color: #242424;
-  color: rgb(255 255 255 / 87%);
+  --color-text: var(--color-light-0);
+  --color-bg: var(--color-dark-0);
+  --color-light-0: #fff;
+  --color-light-1: #f8f6f4;
+  --color-light-2: #e3f4f4;
+  --color-dark-0: #242424;
+  --color-success: #6bcb77;
+  --color-error: #ff6b6b;
+  --color-highlight: #4d96ff;
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
   color-scheme: light dark;
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,15 +30,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    background-color: #fff;
-    color: #213547;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
+    --color-text: var(--color-dark-0);
+    --color-bg: var(--color-light-1);
   }
 }
